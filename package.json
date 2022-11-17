@@ -3,6 +3,24 @@
 	"displayName": "vscode-code-graph",
 	"description": "",
 	"version": "0.0.1",
+	"publisher": "chouzz",
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+	  "name": "Chouzz",
+	  "url": "https://github.com/chouzz"
+	},
+	"galleryBanner": {
+		"color": "#4897f7",
+		"theme": "light"
+	},
+	"bugs": {
+		"url": "https://github.com/chouzz/vscode-code-graph/issues",
+		"email": "zhouhua25@qq.com"
+	  },
+	  "repository": {
+		"type": "git",
+		"url": "https://github.com/chouzz/vscode-code-graph.git"
+	  },
 	"engines": {
 		"vscode": "^1.73.0"
 	},
