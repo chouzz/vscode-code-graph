@@ -3,12 +3,12 @@ import * as vscode from 'vscode';
 import { getNonce } from '../common/node';
 import { extensionContext } from '../extension';
 import {
-    ExecuteCommandType,
+    executeCommandType,
     IpcMessage,
     IpcMessageParams,
     IpcNotificationType,
     onIpc,
-    WebviewReadyCommandType,
+    webviewReadyCommandType,
 } from './protocol';
 
 const maxSmallIntegerV8 = 2 ** 30; // Max number that can be stored in V8's smis (small integers)
@@ -23,8 +23,6 @@ function nextIpcId() {
 
     return `host:${ipcSequence}`;
 }
-
-export type WebviewViewIds = 'commitDetails' | 'home' | 'timeline';
 
 export abstract class WebviewViewBase<State, SerializedState = State>
     implements vscode.WebviewViewProvider, vscode.Disposable
@@ -199,16 +197,16 @@ export abstract class WebviewViewBase<State, SerializedState = State>
         }
 
         switch (e.method) {
-            case WebviewReadyCommandType.method:
-                onIpc(WebviewReadyCommandType, e, () => {
+            case webviewReadyCommandType.method:
+                onIpc(webviewReadyCommandType, e, () => {
                     this.isReady = true;
                     this.onReady?.();
                 });
 
                 break;
 
-            case ExecuteCommandType.method:
-                onIpc(ExecuteCommandType, e, (params) => {
+            case executeCommandType.method:
+                onIpc(executeCommandType, e, (params) => {
                     if (params.args) {
                         vscode.commands.executeCommand(params.command, ...params.args);
                     } else {

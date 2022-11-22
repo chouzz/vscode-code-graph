@@ -31,18 +31,25 @@ export function onIpc<T extends IpcMessageType<any>>(
 	fn(msg.params as IpcMessageParams<T>, type);
 }
 
+export interface State {
+	extensionEnabled: boolean;
+	webroot?: string;
+}
 // COMMANDS
 
-export const WebviewReadyCommandType = new IpcCommandType('webview/ready');
+export const webviewReadyCommandType = new IpcCommandType('webview/ready');
+export const callHierarchyInitItemsCommandType = new IpcCommandType('callHierarchy/initItems');
+export const callHierarchyGotoItemsCommandType = new IpcCommandType('callHierarchy/gotoItem');
+export const callHierarchyOnHoverCommandType = new IpcCommandType('callHierarchy/onHover');
 
 export interface WebviewFocusChangedParams {
 	focused: boolean;
 	inputFocused: boolean;
 }
-export const WebviewFocusChangedCommandType = new IpcCommandType<WebviewFocusChangedParams>('webview/focus');
+export const webviewFocusChangedCommandType = new IpcCommandType<WebviewFocusChangedParams>('webview/focus');
 
 export interface ExecuteCommandParams {
 	command: string;
 	args?: [];
 }
-export const ExecuteCommandType = new IpcCommandType<ExecuteCommandParams>('command/execute');
+export const executeCommandType = new IpcCommandType<ExecuteCommandParams>('command/execute');
