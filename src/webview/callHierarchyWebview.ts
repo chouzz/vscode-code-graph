@@ -11,7 +11,7 @@ import { WebviewViewBase } from './webviewBase';
 
 export class CallHierarchyWebview extends WebviewViewBase<State> {
     constructor() {
-        super('callHierarchyView', 'index.html', 'Call Hierarchy');
+        super('codeGraph.callHierarch.view', 'index.html', 'Call Hierarchy');
     }
 
     protected onMessageReceived(e: IpcMessage): void {
