@@ -28,7 +28,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vscode-code-graph.helloWorld"
+    "onStartupFinished",
+    "onView:codeGraph.callHierarch.view"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -37,7 +38,27 @@
         "command": "vscode-code-graph.helloWorld",
         "title": "Hello World"
       }
-    ]
+    ],
+    "views": {
+      "callHierarchyPanel": [
+        {
+          "type": "webview",
+          "id": "codeGraph.callHierarch.view",
+          "name": "Call Hierarchy",
+          "icon": "$(references)",
+          "visibility": "hidden"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "callHierarchyPanel",
+          "title": "Call Hierarchy",
+          "icon": "$(references)"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
