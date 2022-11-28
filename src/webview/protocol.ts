@@ -26,7 +26,7 @@ export function onIpc<T extends IpcMessageType<any>>(
 	msg: IpcMessage,
 	fn: (params: IpcMessageParams<T>, type: T) => unknown,
 ) {
-	if (type.method !== msg.method) return;
+	if (type.method !== msg.method) {return;}
 
 	fn(msg.params as IpcMessageParams<T>, type);
 }
