@@ -29,7 +29,7 @@
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onView:codeGraph.callHierarch.view"
+    "onView:codeGraph.view"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -40,11 +40,11 @@
       }
     ],
     "views": {
-      "callHierarchyPanel": [
+      "codeGraphPanel": [
         {
           "type": "webview",
-          "id": "codeGraph.callHierarch.view",
-          "name": "Call Hierarchy",
+          "id": "codeGraph.view",
+          "name": "Code Graph",
           "icon": "$(references)",
           "visibility": "hidden"
         }
@@ -53,8 +53,8 @@
     "viewsContainers": {
       "panel": [
         {
-          "id": "callHierarchyPanel",
-          "title": "Call Hierarchy",
+          "id": "codeGraphPanel",
+          "title": "Code Graph",
           "icon": "$(references)"
         }
       ]

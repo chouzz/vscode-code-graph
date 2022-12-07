@@ -38,9 +38,9 @@ export interface State {
 // COMMANDS
 
 export const webviewReadyCommandType = new IpcCommandType('webview/ready');
-export const callHierarchyInitItemsCommandType = new IpcCommandType('callHierarchy/initItems');
-export const callHierarchyGotoItemsCommandType = new IpcCommandType('callHierarchy/gotoItem');
-export const callHierarchyOnHoverCommandType = new IpcCommandType('callHierarchy/onHover');
+export const initItemsCommandType = new IpcCommandType('codeGraph/initItems');
+export const gotoItemsCommandType = new IpcCommandType('codeGraph/gotoItem');
+export const onHoverCommandType = new IpcCommandType('codeGraph/onHover');
 
 export interface WebviewFocusChangedParams {
 	focused: boolean;
