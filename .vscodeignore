@@ -1,13 +1,27 @@
 .vscode/**
 .vscode-test/**
-out/**
-node_modules/**
+out/test/**
 src/**
-.gitignore
-.yarnrc
+.eslintrc.json
+tsconfig.json
 webpack.config.js
-vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 **/*.ts
+node_modules
+.gitattributes
+.gitignore
+# media/*.ts # If you have TSX/TS source files in media that are compiled elsewhere
+# media/*.tsx # If you have TSX/TS source files in media that are compiled elsewhere
+
+# Folders
+# out/ # Keep 'out' directory as it contains compiled JS specified in package.json main
+# dist/ # Keep 'dist' directory if used
+node_modules/ # This root node_modules should typically be excluded
+
+# Files
+webpack.config.js
+.vscode-test/
+ yarn.lock
+.DS_Store
