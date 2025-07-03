@@ -1,0 +1,90 @@
+body {
+    font-family: var(--vscode-font-family);
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-editor-background);
+    padding: 10px;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.results-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.results-list.nested {
+    padding-left: 20px; /* Indentation for nested items */
+    border-left: 1px solid var(--vscode-editorWidget-border, var(--vscode-contrastBorder, #ccc));
+    margin-left: 6px; /* Align with the parent's icon/button area */
+}
+
+
+.result-item {
+    padding: 4px 8px;
+    margin-bottom: 2px;
+    border-radius: 3px;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.result-item:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.expand-button {
+    cursor: pointer;
+    font-size: 12px; /* Smaller plus icon */
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.expand-button:hover {
+    background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+.codicon { /* General codicon styling */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-detail {
+    opacity: 0.8;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+.item-file {
+    margin-left: auto; /* Pushes file info to the right */
+    opacity: 0.7;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+.item-file:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+.hierarchy-direction-header {
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    padding-left: 4px; /* Align with other items */
+    color: var(--vscode-descriptionForeground); /* A slightly different color for headers */
+}
+
+/* Level-based indentation for call hierarchy (visual cue, actual indent via padding-left on nested ul) */
+.level-0 { /* No extra style needed for base level unless specific */ }
+.level-1 { /* Styles for first level of nesting if any */ }
+.level-2 { /* Styles for second level of nesting if any */ }
+/* Add more levels if necessary */
+
+p {
+    margin-top: 0;
+}

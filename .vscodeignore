@@ -1,13 +1,30 @@
 .vscode/**
 .vscode-test/**
-out/**
-node_modules/**
+out/test/**
 src/**
-.gitignore
-.yarnrc
+.eslintrc.json
+tsconfig.json
 webpack.config.js
-vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 **/*.ts
+node_modules
+.gitattributes
+.gitignore
+media/*.ts
+media/*.tsx
+media/icon-plus.svg
+media/styles.css
+media/main.js
+
+# Folders
+out/
+dist/
+node_modules/
+
+# Files
+webpack.config.js
+.vscode-test/
+ yarn.lock
+.DS_Store
