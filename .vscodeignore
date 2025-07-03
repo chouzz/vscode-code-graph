@@ -12,16 +12,13 @@ webpack.config.js
 node_modules
 .gitattributes
 .gitignore
-media/*.ts
-media/*.tsx
-media/icon-plus.svg
-media/styles.css
-media/main.js
+# media/*.ts # If you have TSX/TS source files in media that are compiled elsewhere
+# media/*.tsx # If you have TSX/TS source files in media that are compiled elsewhere
 
 # Folders
-out/
-dist/
-node_modules/
+# out/ # Keep 'out' directory as it contains compiled JS specified in package.json main
+# dist/ # Keep 'dist' directory if used
+node_modules/ # This root node_modules should typically be excluded
 
 # Files
 webpack.config.js

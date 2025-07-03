@@ -1,9 +1,26 @@
 {
-  "name": "symbol-hierarchy-viewer",
-  "displayName": "Symbol Hierarchy Viewer",
-  "description": "Displays call hierarchy or find references in a webview panel.",
-  "version": "0.0.1",
-  "publisher": "jules-ai",
+  "name": "vscode-code-graph",
+  "displayName": "vscode-code-graph",
+  "description": "Provides symbol hierarchy and find references in a dedicated panel. Also includes original Code Graph functionality.",
+  "version": "0.0.2",
+  "publisher": "chouzz",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Chouzz",
+    "url": "https://github.com/chouzz"
+  },
+  "galleryBanner": {
+    "color": "#4897f7",
+    "theme": "light"
+  },
+  "bugs": {
+    "url": "https://github.com/chouzz/vscode-code-graph/issues",
+    "email": "zhouhua25@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chouzz/vscode-code-graph.git"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -11,24 +28,35 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:symbol-hierarchy-viewer.showCallHierarchy",
-    "onCommand:symbol-hierarchy-viewer.findReferences",
+    "onStartupFinished",
+    "onView:codeGraph.view",
+    "onCommand:vscode-code-graph.showCallHierarchyInPanel",
+    "onCommand:vscode-code-graph.findReferencesInPanel",
     "onView:symbolHierarchyView"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "symbol-hierarchy-viewer.showCallHierarchy",
+        "command": "vscode-code-graph.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "vscode-code-graph.showCallHierarchyInPanel",
         "title": "Show Call Hierarchy in Panel"
       },
       {
-        "command": "symbol-hierarchy-viewer.findReferences",
+        "command": "vscode-code-graph.findReferencesInPanel",
         "title": "Find References in Panel"
       }
     ],
     "viewsContainers": {
       "panel": [
+        {
+          "id": "codeGraphPanel",
+          "title": "Code Graph",
+          "icon": "$(references)"
+        },
         {
           "id": "symbolHierarchyContainer",
           "title": "Symbol Hierarchy",
@@ -37,6 +65,15 @@
       ]
     },
     "views": {
+      "codeGraphPanel": [
+        {
+          "type": "webview",
+          "id": "codeGraph.view",
+          "name": "Code Graph",
+          "icon": "$(references)",
+          "visibility": "hidden"
+        }
+      ],
       "symbolHierarchyContainer": [
         {
           "id": "symbolHierarchyView",
@@ -45,22 +82,47 @@
           "contextualTitle": "Symbol Hierarchy"
         }
       ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasCallHierarchyProvider",
+          "command": "vscode-code-graph.showCallHierarchyInPanel",
+          "group": "navigation@1"
+        },
+        {
+          "when": "editorHasReferenceProvider",
+          "command": "vscode-code-graph.findReferencesInPanel",
+          "group": "navigation@2"
+        }
+      ]
     }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "lint": "eslint src --ext ts"
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/vscode": "^1.80.0",
     "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
+    "@vscode/test-electron": "^2.1.5",
     "eslint": "^8.56.0",
     "glob": "^8.1.0",
-    "typescript": "^5.3.3"
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.3.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }

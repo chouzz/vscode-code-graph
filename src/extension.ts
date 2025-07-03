@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('symbol-hierarchy-viewer.showCallHierarchy', async () => {
+        vscode.commands.registerCommand('vscode-code-graph.showCallHierarchyInPanel', async () => {
             // Ensure the view is visible
             await vscode.commands.executeCommand('symbolHierarchyView.focus');
 
@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('symbol-hierarchy-viewer.findReferences', async () => {
+        vscode.commands.registerCommand('vscode-code-graph.findReferencesInPanel', async () => {
             await vscode.commands.executeCommand('symbolHierarchyView.focus');
 
             const editor = vscode.window.activeTextEditor;

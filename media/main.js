@@ -53,7 +53,11 @@
         li.className = `result-item call-hierarchy-item level-${level}`;
 
         const item = hierarchyType === 'incoming' ? itemData.from : (hierarchyType === 'outgoing' ? itemData.to : itemData);
-        const itemId = item.uri.toString() + '_' + item.selectionRange.start.line + '_' + item.selectionRange.start.character;
+
+        // Per feedback, item.selectionRange is received as [startPosition, endPosition] in webview
+        const selectionStartPos = item.selectionRange[0];
+        const selectionEndPos = item.selectionRange[1];
+        const itemId = item.uri.toString() + '_' + selectionStartPos.line + '_' + selectionStartPos.character;
         li.dataset.itemId = itemId;
 
         const expandButton = document.createElement('span');
@@ -93,15 +97,20 @@
         const fileSpan = document.createElement('span');
         fileSpan.className = 'item-file';
         const filePath = item.uri.path.substring(item.uri.path.lastIndexOf('/') + 1);
-        fileSpan.textContent = `${filePath}:${item.selectionRange.start.line + 1}`;
+        fileSpan.textContent = `${filePath}:${selectionStartPos.line + 1}`; // Use selectionStartPos
         fileSpan.title = item.uri.path;
 
         fileSpan.addEventListener('click', () => {
+            // Reconstruct range as { start: Position, end: Position } for the extension
+            const rangeForNavigation = {
+                start: selectionStartPos,
+                end: selectionEndPos
+            };
             vscode.postMessage({
                 type: 'navigateToLocation',
                 location: {
                     uri: item.uri,
-                    range: item.selectionRange
+                    range: rangeForNavigation
                 }
             });
         });
@@ -164,16 +173,28 @@
         const fileSpan = document.createElement('span');
         fileSpan.className = 'item-file';
         const filePath = location.uri.path.substring(location.uri.path.lastIndexOf('/') + 1);
-        fileSpan.textContent = `${filePath}:${location.range.start.line + 1}`;
+
+        // Per feedback, location.range is received as [startPosition, endPosition] in webview
+        const rangeStartPos = location.range[0];
+        const rangeEndPos = location.range[1];
+        fileSpan.textContent = `${filePath}:${rangeStartPos.line + 1}`;
         fileSpan.title = location.uri.path;
 
         // TODO: Add snippet of the line if possible (requires reading file content, might be complex for webview)
 
         li.appendChild(fileSpan);
         li.addEventListener('click', () => {
+            // Reconstruct range as { start: Position, end: Position } for the extension
+            const rangeForNavigation = {
+                start: rangeStartPos,
+                end: rangeEndPos
+            };
             vscode.postMessage({
                 type: 'navigateToLocation',
-                location: location
+                location: {
+                    uri: location.uri,
+                    range: rangeForNavigation
+                }
             });
         });
         return li;
